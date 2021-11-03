@@ -10,22 +10,18 @@
 
 import UIKit
 
-public class DropDownCell: UITableViewCell {
+open class DropDownCell: UITableViewCell {
 		
 	//UI
-    public lazy var optionLabel: UILabel = {
+    open var optionLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 	
-	public var selectedBackgroundColor: UIColor?
-    public var highlightTextColor: UIColor?
-    public var normalTextColor: UIColor?
-
-    public init() {
-        super.init()
-    }
+    open var selectedBackgroundColor: UIColor?
+    open var highlightTextColor: UIColor?
+    open var normalTextColor: UIColor?
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
