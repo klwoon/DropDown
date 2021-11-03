@@ -10,7 +10,7 @@
 
 import UIKit
 
-open class DropDownCell: UITableViewCell {
+public class DropDownCell: UITableViewCell {
 		
 	//UI
     public lazy var optionLabel: UILabel = {
