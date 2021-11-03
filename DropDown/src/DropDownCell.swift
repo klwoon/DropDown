@@ -23,6 +23,8 @@ public class DropDownCell: UITableViewCell {
     public var highlightTextColor: UIColor?
     public var normalTextColor: UIColor?
 
+    public init() {}
+    
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
