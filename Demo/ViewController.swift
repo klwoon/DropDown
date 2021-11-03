@@ -97,7 +97,7 @@ class ViewController: UIViewController {
 		DropDown.setupDefaultAppearance()
 		
 		dropDowns.forEach {
-			$0.cellNib = UINib(nibName: "DropDownCell", bundle: Bundle(for: DropDownCell.self))
+            $0.cellClass = DropDownCell.self
 			$0.customCellConfiguration = nil
 		}
 	}
@@ -123,13 +123,10 @@ class ViewController: UIViewController {
 		
 		dropDowns.forEach {
 			/*** FOR CUSTOM CELLS ***/
-			$0.cellNib = UINib(nibName: "MyCell", bundle: nil)
+            $0.cellClass = DropDownCell.self
 			
 			$0.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
-				guard let cell = cell as? MyCell else { return }
-				
-				// Setup your custom UI components
-				cell.logoImageView.image = UIImage(named: "logo_\(index % 10)")
+				guard let cell = cell as? DropDownCell else { return }
 			}
 			/*** ---------------- ***/
 		}

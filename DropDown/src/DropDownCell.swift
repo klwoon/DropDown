@@ -13,23 +13,41 @@ import UIKit
 open class DropDownCell: UITableViewCell {
 		
 	//UI
-	@IBOutlet open weak var optionLabel: UILabel!
+    lazy var optionLabel: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 	
 	var selectedBackgroundColor: UIColor?
     var highlightTextColor: UIColor?
     var normalTextColor: UIColor?
 
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        let preferredHeight: CGFloat = 45
+        
+        layer.frame = .init(x: 0, y: 0, width: bounds.width, height: preferredHeight)
+        
+        contentView.addSubview(optionLabel)
+        optionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        optionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        optionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
+        self.heightAnchor.constraint(equalToConstant: preferredHeight).isActive = true
+        
+    }
+    
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
 //MARK: - UI
 
 extension DropDownCell {
-	
-	override open func awakeFromNib() {
-		super.awakeFromNib()
-		
-		backgroundColor = .clear
-	}
 	
 	override open var isSelected: Bool {
 		willSet {
