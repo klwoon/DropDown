@@ -13,15 +13,15 @@ import UIKit
 open class DropDownCell: UITableViewCell {
 		
 	//UI
-    lazy var optionLabel: UILabel = {
+    public lazy var optionLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 	
-	var selectedBackgroundColor: UIColor?
-    var highlightTextColor: UIColor?
-    var normalTextColor: UIColor?
+	public var selectedBackgroundColor: UIColor?
+    public var highlightTextColor: UIColor?
+    public var normalTextColor: UIColor?
 
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
