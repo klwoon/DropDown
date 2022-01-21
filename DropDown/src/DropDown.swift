@@ -1225,6 +1225,7 @@ public class MansionDropDown: DropDown {
         cellHeight = DropDownCell.preferredHeight
         
         tableViewContainer.backgroundColor = .white
+        backgroundColor = .clear
         
     }
     
