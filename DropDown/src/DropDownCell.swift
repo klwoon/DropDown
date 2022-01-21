@@ -18,6 +18,13 @@ open class DropDownCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    open var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 5
+        return view
+    }()
 	
     open var selectedBackgroundColor: UIColor?
     open var highlightTextColor: UIColor?
@@ -30,10 +37,19 @@ open class DropDownCell: UITableViewCell {
         
         layer.frame = .init(x: 0, y: 0, width: bounds.width, height: preferredHeight)
         
-        contentView.addSubview(optionLabel)
-        optionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        optionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        optionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        contentView.addSubview(containerView)
+        containerView.addSubview(optionLabel)
+        
+        let sharedSpacing: CGFloat = 4
+        containerView.makeStickyLead(self.leadingAnchor, constant: sharedSpacing)
+        containerView.makeStickyTop(self.topAnchor, constant: sharedSpacing)
+        containerView.makeStickyTrail(self.trailingAnchor, constant: -sharedSpacing)
+        containerView.makeStickyBottom(self.bottomAnchor, constant: -sharedSpacing)
+        
+        let sharedTextSpacing: CGFloat = 4
+        optionLabel.makeStickyLead(self.leadingAnchor, constant: sharedTextSpacing)
+        optionLabel.makeStickyTrail(self.trailingAnchor, constant: -sharedTextSpacing)
+        optionLabel.makeStickyCenterY(self.centerYAnchor)
         
         self.heightAnchor.constraint(equalToConstant: preferredHeight).isActive = true
         
@@ -71,10 +87,12 @@ extension DropDownCell {
 
 			if let selectedBackgroundColor = self.selectedBackgroundColor {
 				if selected {
-					self.backgroundColor = selectedBackgroundColor
+                    self.containerView.backgroundColor = selectedBackgroundColor
+//					self.backgroundColor = selectedBackgroundColor
                     self.optionLabel.textColor = self.highlightTextColor
 				} else {
-					self.backgroundColor = .clear
+                    self.containerView.backgroundColor = .clear
+//					self.backgroundColor = .clear
                     self.optionLabel.textColor = self.normalTextColor
 				}
 			}
@@ -94,3 +112,53 @@ extension DropDownCell {
 }
 
 #endif
+
+import UIKit
+
+extension UIView {
+    
+    private func useAutoLayout(){
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func makeStickyTop(_ constraint: NSLayoutYAxisAnchor, constant: CGFloat = 0) {
+        self.useAutoLayout()
+        self.topAnchor.constraint(equalTo: constraint, constant: constant).isActive = true
+    }
+    
+    func makeStickyLead(_ constraint: NSLayoutXAxisAnchor, constant: CGFloat = 0) {
+        self.useAutoLayout()
+        self.leadingAnchor.constraint(equalTo: constraint, constant: constant).isActive = true
+    }
+    
+    func makeStickyTrail(_ constraint: NSLayoutXAxisAnchor, constant: CGFloat = 0) {
+        self.useAutoLayout()
+        self.trailingAnchor.constraint(equalTo: constraint, constant: constant).isActive = true
+    }
+    
+    func makeStickyBottom(_ constraint: NSLayoutYAxisAnchor, constant: CGFloat = 0) {
+        self.useAutoLayout()
+        self.bottomAnchor.constraint(equalTo: constraint, constant: constant).isActive = true
+    }
+    
+    func makeStickyWidth(_ constant: CGFloat) {
+        self.useAutoLayout()
+        self.widthAnchor.constraint(equalToConstant: constant).isActive = true
+    }
+    
+    func makeStickyHeight(_ constant: CGFloat) {
+        self.useAutoLayout()
+        self.heightAnchor.constraint(equalToConstant: constant).isActive = true
+    }
+    
+    func makeStickyCenterX(_ constraint: NSLayoutXAxisAnchor, constant: CGFloat = 0) {
+        self.useAutoLayout()
+        self.centerXAnchor.constraint(equalTo: constraint, constant: constant).isActive = true
+    }
+    
+    func makeStickyCenterY(_ constraint: NSLayoutYAxisAnchor, constant: CGFloat = 0) {
+        self.useAutoLayout()
+        self.centerYAnchor.constraint(equalTo: constraint, constant: constant).isActive = true
+    }
+    
+}

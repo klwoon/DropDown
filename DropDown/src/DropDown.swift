@@ -1058,7 +1058,7 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
 	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: DPDConstant.ReusableIdentifier.DropDownCell, for: indexPath) as! DropDownCell
 		let index = (indexPath as NSIndexPath).row
-
+        
 		configureCell(cell, at: index)
 
 		return cell
