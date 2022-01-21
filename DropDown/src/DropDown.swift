@@ -547,6 +547,7 @@ private extension DropDown {
 		tableView.separatorColor = separatorColor
 		tableView.layer.cornerRadius = cornerRadius
 		tableView.layer.masksToBounds = true
+        
 	}
 
 }
@@ -643,7 +644,14 @@ extension DropDown {
 		tableViewContainer.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
         
-		tableViewContainer.addUniversalConstraints(format: "|[tableView]|", views: ["tableView": tableView])
+        let sharedSpace: CGFloat = 6
+        let sharedTopBottom: CGFloat = sharedSpace - 2
+        
+        tableView.makeStickyTop(tableViewContainer.topAnchor, constant: sharedTopBottom)
+        tableView.makeStickyLead(tableViewContainer.leadingAnchor, constant: sharedSpace)
+        tableView.makeStickyTrail(tableViewContainer.trailingAnchor, constant: -sharedSpace)
+        tableView.makeStickyBottom(tableViewContainer.bottomAnchor, constant: -sharedTopBottom)
+//		tableViewContainer.addUniversalConstraints(format: "|[tableView]|", views: ["tableView": tableView])
 	}
 
 	public override func layoutSubviews() {
