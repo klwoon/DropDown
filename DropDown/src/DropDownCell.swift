@@ -40,7 +40,7 @@ open class DropDownCell: UITableViewCell {
         contentView.addSubview(containerView)
         containerView.addSubview(optionLabel)
         
-        let sharedSpacing: CGFloat = 4
+        let sharedSpacing: CGFloat = 12
         containerView.makeStickyLead(self.leadingAnchor, constant: sharedSpacing)
         containerView.makeStickyTop(self.topAnchor, constant: sharedSpacing)
         containerView.makeStickyTrail(self.trailingAnchor, constant: -sharedSpacing)
@@ -92,7 +92,7 @@ extension DropDownCell {
                     self.optionLabel.textColor = self.highlightTextColor
 				} else {
                     self.containerView.backgroundColor = .clear
-//					self.backgroundColor = .clear
+					self.backgroundColor = .clear
                     self.optionLabel.textColor = self.normalTextColor
 				}
 			}

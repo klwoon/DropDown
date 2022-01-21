@@ -43,7 +43,7 @@ extension UIBarButtonItem: AnchorView {
 }
 
 /// A Material Design drop down in replacement for `UIPickerView`.
-public final class DropDown: UIView {
+public class DropDown: UIView {
 
 	//TODO: handle iOS 7 landscape mode
 
@@ -1203,3 +1203,21 @@ private extension DispatchQueue {
 }
 
 #endif
+
+public class MansionDropDown: DropDown {
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        let sharedOffset = 60
+        
+        bottomOffset = CGPoint(x: 0, y: sharedOffset)
+        topOffset = CGPoint(x: 0, y: -sharedOffset)
+        
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
