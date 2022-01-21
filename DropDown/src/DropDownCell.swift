@@ -12,7 +12,7 @@ import UIKit
 
 open class DropDownCell: UITableViewCell {
 		
-    static let preferredHeight: CGFloat = 68
+    static let preferredHeight: CGFloat = 50
     
     open var optionLabel: UILabel = {
         let view = UILabel()
@@ -39,16 +39,16 @@ open class DropDownCell: UITableViewCell {
         contentView.addSubview(containerView)
         containerView.addSubview(optionLabel)
         
-        let sharedSpacing: CGFloat = 12
+        let sharedSpacing: CGFloat = 6
         containerView.makeStickyLead(self.leadingAnchor, constant: sharedSpacing)
         containerView.makeStickyTop(self.topAnchor, constant: sharedSpacing)
         containerView.makeStickyTrail(self.trailingAnchor, constant: -sharedSpacing)
         containerView.makeStickyBottom(self.bottomAnchor, constant: -sharedSpacing)
         
         let sharedTextSpacing: CGFloat = 4
-        optionLabel.makeStickyLead(self.leadingAnchor, constant: sharedTextSpacing)
-        optionLabel.makeStickyTrail(self.trailingAnchor, constant: -sharedTextSpacing)
-        optionLabel.makeStickyCenterY(self.centerYAnchor)
+        optionLabel.makeStickyLead(containerView.leadingAnchor, constant: sharedTextSpacing)
+        optionLabel.makeStickyTrail(containerView.trailingAnchor, constant: -sharedTextSpacing)
+        optionLabel.makeStickyCenterY(containerView.centerYAnchor)
         
         self.heightAnchor.constraint(equalToConstant: Self.preferredHeight).isActive = true
         
