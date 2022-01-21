@@ -33,7 +33,7 @@ open class DropDownCell: UITableViewCell {
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        let preferredHeight: CGFloat = 45
+        let preferredHeight: CGFloat = 68
         
         layer.frame = .init(x: 0, y: 0, width: bounds.width, height: preferredHeight)
         
