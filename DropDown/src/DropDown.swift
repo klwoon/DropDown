@@ -642,7 +642,7 @@ extension DropDown {
 		// Table view
 		tableViewContainer.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
-
+        
 		tableViewContainer.addUniversalConstraints(format: "|[tableView]|", views: ["tableView": tableView])
 	}
 
@@ -1213,6 +1213,8 @@ public class MansionDropDown: DropDown {
         
         bottomOffset = CGPoint(x: 0, y: sharedOffset)
         topOffset = CGPoint(x: 0, y: -sharedOffset)
+        
+        cellHeight = DropDownCell.preferredHeight
         
     }
     

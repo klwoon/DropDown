@@ -12,7 +12,8 @@ import UIKit
 
 open class DropDownCell: UITableViewCell {
 		
-	//UI
+    static let preferredHeight: CGFloat = 68
+    
     open var optionLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,9 +34,7 @@ open class DropDownCell: UITableViewCell {
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        let preferredHeight: CGFloat = 68
-        
-        layer.frame = .init(x: 0, y: 0, width: bounds.width, height: preferredHeight)
+        layer.frame = .init(x: 0, y: 0, width: bounds.width, height: Self.preferredHeight)
         
         contentView.addSubview(containerView)
         containerView.addSubview(optionLabel)
@@ -51,7 +50,7 @@ open class DropDownCell: UITableViewCell {
         optionLabel.makeStickyTrail(self.trailingAnchor, constant: -sharedTextSpacing)
         optionLabel.makeStickyCenterY(self.centerYAnchor)
         
-        self.heightAnchor.constraint(equalToConstant: preferredHeight).isActive = true
+        self.heightAnchor.constraint(equalToConstant: Self.preferredHeight).isActive = true
         
     }
     
