@@ -644,15 +644,13 @@ extension DropDown {
 		tableViewContainer.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        let sharedSpace: CGFloat = 6
-        let sharedTopBottom: CGFloat = sharedSpace - 2
+        setupTableViewContraints()
         
-        tableView.makeStickyTop(tableViewContainer.topAnchor, constant: sharedTopBottom)
-        tableView.makeStickyLead(tableViewContainer.leadingAnchor, constant: sharedSpace)
-        tableView.makeStickyTrail(tableViewContainer.trailingAnchor, constant: -sharedSpace)
-        tableView.makeStickyBottom(tableViewContainer.bottomAnchor, constant: -sharedTopBottom)
-//		tableViewContainer.addUniversalConstraints(format: "|[tableView]|", views: ["tableView": tableView])
 	}
+    
+    @objc public func setupTableViewContraints() {
+        tableViewContainer.addUniversalConstraints(format: "|[tableView]|", views: ["tableView": tableView])
+    }
 
 	public override func layoutSubviews() {
 		super.layoutSubviews()
@@ -1231,6 +1229,14 @@ public class MansionDropDown: DropDown {
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc public override func setupTableViewContraints() {
+        let sharedSpace: CGFloat = 6
+        tableView.makeStickyTop(tableViewContainer.topAnchor, constant: sharedSpace - 2)
+        tableView.makeStickyLead(tableViewContainer.leadingAnchor, constant: sharedSpace)
+        tableView.makeStickyTrail(tableViewContainer.trailingAnchor, constant: -sharedSpace)
+        tableView.makeStickyBottom(tableViewContainer.bottomAnchor, constant: -sharedSpace)
     }
     
 }
