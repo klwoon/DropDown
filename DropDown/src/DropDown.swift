@@ -1224,6 +1224,9 @@ public class MansionDropDown: DropDown {
         
         cellHeight = DropDownCell.preferredHeight
         
+        tableViewContainer.backgroundColor = .white
+        tableView.backgroundColor = .white
+        
     }
     
     public required init?(coder aDecoder: NSCoder) {
