@@ -22,7 +22,7 @@ class ViewController: UIViewController {
 	
 	//MARK: - DropDown's
 	
-	let chooseArticleDropDown = DropDown()
+	let chooseArticleDropDown = MansionDropDown()
 	let amountDropDown = MansionDropDown()
 	let chooseDropDown = DropDown()
 	let centeredDropDown = DropDown()

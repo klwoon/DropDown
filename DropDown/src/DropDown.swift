@@ -45,6 +45,10 @@ extension UIBarButtonItem: AnchorView {
 /// A Material Design drop down in replacement for `UIPickerView`.
 public class DropDown: UIView {
 
+    var sharedAdjustment: CGFloat {
+        0
+    }
+    
 	//TODO: handle iOS 7 landscape mode
 
 	/// The dismiss mode for a drop down.
@@ -575,7 +579,7 @@ extension DropDown {
 		xConstraint.constant = layout.x
 		yConstraint.constant = layout.y
 		widthConstraint.constant = layout.width
-		heightConstraint.constant = layout.visibleHeight
+		heightConstraint.constant = layout.visibleHeight + sharedAdjustment
 
 		tableView.isScrollEnabled = layout.offscreenHeight > 0
 
@@ -1211,6 +1215,10 @@ private extension DispatchQueue {
 #endif
 
 public class MansionDropDown: DropDown {
+    
+    override var sharedAdjustment: CGFloat {
+        10
+    }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
