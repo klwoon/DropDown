@@ -16,6 +16,8 @@ open class DropDownCell: UITableViewCell {
     
     open var optionLabel: UILabel = {
         let view = UILabel()
+        view.numberOfLines = 0
+        view.lineBreakMode = .byWordWrapping
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
