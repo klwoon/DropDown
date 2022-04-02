@@ -264,9 +264,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AB5D87A1D0EEECD002D3A17 /* Build configuration list for PBXNativeTarget "DropDown" */;
 			buildPhases = (
+				0AB5D86E1D0EEECD002D3A17 /* Headers */,
 				0AB5D86C1D0EEECD002D3A17 /* Sources */,
 				0AB5D86D1D0EEECD002D3A17 /* Frameworks */,
-				0AB5D86E1D0EEECD002D3A17 /* Headers */,
 				0AB5D86F1D0EEECD002D3A17 /* Resources */,
 			);
 			buildRules = (
