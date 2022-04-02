@@ -154,6 +154,11 @@ public final class DropDown: UIView {
 		didSet { setNeedsUpdateConstraints() }
 	}
 
+    // The height of the drop down
+    public var height: CGFloat = 0.0 {
+        didSet{ setNeedsUpdateConstraints() }
+    }
+
 	/**
 	arrowIndication.x
 
@@ -455,6 +460,7 @@ public final class DropDown: UIView {
 		return tableView.rowHeight
 	}
 
+    fileprivate var cellHeightDict: [Int: CGFloat] = [:]
 	fileprivate var didSetupConstraints = false
 
 	//MARK: - Init's
@@ -580,7 +586,7 @@ extension DropDown {
 		widthConstraint.constant = layout.width
 		heightConstraint.constant = layout.visibleHeight
 
-		tableView.isScrollEnabled = layout.offscreenHeight > 0
+        tableView.isScrollEnabled = true
 
 		DispatchQueue.main.async { [weak self] in
 			self?.tableView.flashScrollIndicators()
@@ -1030,7 +1036,11 @@ extension DropDown {
 
 	/// Returns the height needed to display all cells.
 	fileprivate var tableHeight: CGFloat {
-		return tableView.rowHeight * CGFloat(dataSource.count)
+        if height == 0.0 {
+            return tableView.rowHeight * CGFloat(dataSource.count)
+        } else {
+            return height
+        }
 	}
 
     //MARK: Objective-C methods for converting the Swift type Index
@@ -1100,6 +1110,8 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
 
 	public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.isSelected = selectedRowIndices.first{ $0 == (indexPath as NSIndexPath).row } != nil
+        cellHeightDict[indexPath.row] = cell.frame.height
+        height = cellHeightDict.values.reduce(0, +)
 	}
 
 	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

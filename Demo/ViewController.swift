@@ -170,9 +170,9 @@ class ViewController: UIViewController {
 		
 		// You can also use localizationKeysDataSource instead. Check the docs.
 		chooseArticleDropDown.dataSource = [
-			"iPhone SE | Black | 64G",
+			"iPhone SE | Black | 64G asdfasdf ad fasdf asd fasd fasd fasdfasdfasdf asdf asdfasdfasdf asdfasdfadfsdf asdfasdfasdasdf dsaf asdf asd fasd fasd fasd fasd fad fasd fad fa fds",
 			"Samsung S7",
-			"Huawei P8 Lite Smartphone 4G",
+			"Huawei P8 Lite Smartphone 4G asdfsadfasdf asdfa sdfa sfas dfasdfasfasdfasdfa dfadfadfasdf asdfasdfasdf",
 			"Asus Zenfone Max 4G",
 			"Apple Watwh | Sport Edition"
 		]
@@ -241,7 +241,7 @@ class ViewController: UIViewController {
 		// You can also use localizationKeysDataSource instead. Check the docs.
 		chooseDropDown.dataSource = [
 			"Lorem ipsum dolor",
-			"sit amet consectetur sit amet consectetur sit amet consectetur sit amet consectetur sit amet consectetur",
+			"sit amet consectetur sit amet consectetur sit amet consectetur sit amet consectetur sit amet consectetur asdfsadlkj ;lasdjf ;lkajd fadsfa;lk j;alsdf sadf",
             // long string for testing multi-line support in tableview cell.
 			"cadipisci en..."
 		]
