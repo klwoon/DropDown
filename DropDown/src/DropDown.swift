@@ -12,10 +12,10 @@ import UIKit
 
 public typealias Index = Int
 public typealias Closure = () -> Void
-public typealias SelectionClosure = (Index, String) -> Void
-public typealias MultiSelectionClosure = ([Index], [String]) -> Void
+public typealias SelectionClosure = (Index, DropDownViewModel) -> Void
+public typealias MultiSelectionClosure = ([Index], [DropDownViewModel]) -> Void
 public typealias ConfigurationClosure = (Index, String) -> String
-public typealias CellConfigurationClosure = (Index, String, DropDownCell) -> Void
+public typealias CellConfigurationClosure = (Index, DropDownViewModel, DropDownCell) -> Void
 private typealias ComputeLayoutTuple = (x: CGFloat, y: CGFloat, width: CGFloat, offscreenHeight: CGFloat)
 
 /// Can be `UIView` or `UIBarButtonItem`.
@@ -386,7 +386,7 @@ public final class DropDown: UIView {
 
 	Changing the data source automatically reloads the drop down.
 	*/
-	public var dataSource = [String]() {
+	public var dataSource = [DropDownViewModel]() {
 		didSet {
             deselectRows(at: selectedRowIndices)
 			reloadAllComponents()
@@ -399,9 +399,9 @@ public final class DropDown: UIView {
 	Changing this value automatically reloads the drop down.
 	This has uses for setting accibility identifiers on the drop down cells (same ones as the localization keys).
 	*/
-	public var localizationKeysDataSource = [String]() {
+	public var localizationKeysDataSource = [DropDownViewModel]() {
 		didSet {
-			dataSource = localizationKeysDataSource.map { NSLocalizedString($0, comment: "") }
+            dataSource = localizationKeysDataSource.map { DropDownViewModel(title: NSLocalizedString($0.localizationKey ?? "", comment: "")) }
 		}
 	}
 
@@ -492,7 +492,7 @@ public final class DropDown: UIView {
 
 	- returns: A new instance of a drop down customized with the above parameters.
 	*/
-	public convenience init(anchorView: AnchorView, selectionAction: SelectionClosure? = nil, dataSource: [String] = [], topOffset: CGPoint? = nil, bottomOffset: CGPoint? = nil, cellConfiguration: ConfigurationClosure? = nil, cancelAction: Closure? = nil) {
+	public convenience init(anchorView: AnchorView, selectionAction: SelectionClosure? = nil, dataSource: [DropDownViewModel] = [], topOffset: CGPoint? = nil, bottomOffset: CGPoint? = nil, cellConfiguration: ConfigurationClosure? = nil, cancelAction: Closure? = nil) {
 		self.init(frame: .zero)
 
 		self.anchorView = anchorView
@@ -1028,7 +1028,7 @@ extension DropDown {
 	}
 
 	/// Returns the selected item.
-	public var selectedItem: String? {
+	public var selectedItem: DropDownViewModel? {
 		guard let row = (tableView.indexPathForSelectedRow as NSIndexPath?)?.row else { return nil }
 
 		return dataSource[row]
@@ -1080,7 +1080,7 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
 	
 	fileprivate func configureCell(_ cell: DropDownCell, at index: Int) {
 		if index >= 0 && index < localizationKeysDataSource.count {
-			cell.accessibilityIdentifier = localizationKeysDataSource[index]
+            cell.accessibilityIdentifier = localizationKeysDataSource[index].title
 		}
 		
 		cell.optionLabel.textColor = textColor
@@ -1092,9 +1092,9 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
         cell.normalTextColor = textColor
 		
 		if let cellConfiguration = cellConfiguration {
-			cell.optionLabel.text = cellConfiguration(index, dataSource[index])
+            cell.optionLabel.text = cellConfiguration(index, dataSource[index].title ?? "")
 		} else {
-			cell.optionLabel.text = dataSource[index]
+            cell.optionLabel.text = dataSource[index].title
 		}
 		
 		customCellConfiguration?(index, dataSource[index], cell)
@@ -1226,6 +1226,18 @@ private extension DispatchQueue {
 			main.async(execute: closure)
 		}
 	}
+}
+
+public struct DropDownViewModel {
+    public let title: String?
+    public let localizationKey: String?
+    public let data: Any?
+    
+    public init(title: String? = nil, localizationKey: String? = nil, data: Any? = nil) {
+        self.title = title
+        self.localizationKey = localizationKey
+        self.data = data
+    }
 }
 
 #endif

@@ -125,7 +125,7 @@ class ViewController: UIViewController {
 			/*** FOR CUSTOM CELLS ***/
 			$0.cellNib = UINib(nibName: "MyCell", bundle: nil)
 			
-			$0.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
+			$0.customCellConfiguration = { (index: Index, item: DropDownViewModel, cell: DropDownCell) -> Void in
 				guard let cell = cell as? MyCell else { return }
 				
 				// Setup your custom UI components
@@ -170,16 +170,19 @@ class ViewController: UIViewController {
 		
 		// You can also use localizationKeysDataSource instead. Check the docs.
 		chooseArticleDropDown.dataSource = [
-			"iPhone SE | Black | 64G asdfasdf ad fasdf asd fasd fasd fasdfasdfasdf asdf asdfasdfasdf asdfasdfadfsdf asdfasdfasdasdf dsaf asdf asd fasd fasd fasd fasd fad fasd fad fa fds",
-			"Samsung S7",
-			"Huawei P8 Lite Smartphone 4G asdfsadfasdf asdfa sdfa sfas dfasdfasfasdfasdfa dfadfadfasdf asdfasdfasdf",
-			"Asus Zenfone Max 4G",
-			"Apple Watwh | Sport Edition"
-		]
-		
+            DropDownViewModel(title: "iPhone SE | Black | 64G", data: 123),
+            DropDownViewModel(data: "123"),
+            DropDownViewModel(title: "Huawei P8 Lite Smartphone 4G", data: [123, 456]),
+            DropDownViewModel(title: "Asus Zenfone Max 4G", data: [1: "123"]),
+            DropDownViewModel(title: "Apple Watwh | Sport Edition", data: CGRect.zero)
+        ]
 		// Action triggered on selection
 		chooseArticleDropDown.selectionAction = { [weak self] (index, item) in
-			self?.chooseArticleButton.setTitle(item, for: .normal)
+            guard let stringData = item.data as? String else {
+                self?.chooseArticleButton.setTitle(item.title, for: .normal)
+                return
+            }
+            self?.chooseArticleButton.setTitle(stringData, for: .normal)
 		}
         
         chooseArticleDropDown.multiSelectionAction = { [weak self] (indices, items) in
@@ -222,11 +225,11 @@ class ViewController: UIViewController {
 			"100 €",
 			"110 €",
 			"120 €"
-		]
+        ].map { DropDownViewModel(title: $0) }
 		
 		// Action triggered on selection
 		amountDropDown.selectionAction = { [weak self] (index, item) in
-			self?.amountButton.setTitle(item, for: .normal)
+            self?.amountButton.setTitle(item.title, for: .normal)
 		}
 	}
 	
@@ -244,11 +247,11 @@ class ViewController: UIViewController {
 			"sit amet consectetur sit amet consectetur sit amet consectetur sit amet consectetur sit amet consectetur asdfsadlkj ;lasdjf ;lkajd fadsfa;lk j;alsdf sadf",
             // long string for testing multi-line support in tableview cell.
 			"cadipisci en..."
-		]
+        ].map { DropDownViewModel(title: $0) }
 		
 		// Action triggered on selection
 		chooseDropDown.selectionAction = { [weak self] (index, item) in
-			self?.chooseButton.setTitle(item, for: .normal)
+            self?.chooseButton.setTitle(item.title, for: .normal)
 		}
 	}
 	
@@ -263,10 +266,10 @@ class ViewController: UIViewController {
 			"the view because",
 			"it has no anchor view defined.",
 			"Click anywhere to dismiss."
-		]
+        ].map { DropDownViewModel(title: $0) }
         
         centeredDropDown.selectionAction = { [weak self] (index, item) in
-            self?.centeredDropDownButton.setTitle(item, for: .normal)
+            self?.centeredDropDownButton.setTitle(item.title, for: .normal)
         }
 	}
 	
@@ -279,6 +282,7 @@ class ViewController: UIViewController {
 			"Menu 2",
 			"Menu 3",
 			"Menu 4"
-		]
+        ].map { DropDownViewModel(title: $0) }
 	}
 }
+
