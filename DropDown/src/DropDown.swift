@@ -388,7 +388,6 @@ public final class DropDown: UIView {
 	*/
 	public var dataSource = [DropDownViewModel]() {
 		didSet {
-            cellHeightDict.removeAll()
             deselectRows(at: selectedRowIndices)
 			reloadAllComponents()
 		}
@@ -974,6 +973,7 @@ extension DropDown {
 	*/
 	public func reloadAllComponents() {
 		DispatchQueue.executeOnMainThread {
+            self.cellHeightDict.removeAll()
 			self.tableView.reloadData()
 			self.setNeedsUpdateConstraints()
 		}
