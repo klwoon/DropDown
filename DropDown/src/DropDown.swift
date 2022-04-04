@@ -973,6 +973,7 @@ extension DropDown {
 	*/
 	public func reloadAllComponents() {
 		DispatchQueue.executeOnMainThread {
+            self.cellHeightDict.removeAll()
 			self.tableView.reloadData()
 			self.setNeedsUpdateConstraints()
 		}
