@@ -1111,6 +1111,10 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
 	public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.isSelected = selectedRowIndices.first{ $0 == (indexPath as NSIndexPath).row } != nil
         cellHeightDict[indexPath.row] = cell.frame.height
+        if dataSource.count < cellHeightDict.count {
+            let lastItemsToRemove = cellHeightDict.count - dataSource.count
+            cellHeightDict = Dictionary(uniqueKeysWithValues: cellHeightDict.dropLast(lastItemsToRemove))
+        }
         height = cellHeightDict.values.reduce(0, +)
 	}
 
@@ -1238,6 +1242,24 @@ public struct DropDownViewModel {
         self.localizationKey = localizationKey
         self.data = data
     }
+}
+
+extension Dictionary {
+  /// Creates a new dictionary from the key-value pairs in the given sequence.
+  ///
+  /// - Parameter keysAndValues: A sequence of key-value pairs to use for
+  ///   the new dictionary. Every key in `keysAndValues` must be unique.
+  /// - Returns: A new dictionary initialized with the elements of `keysAndValues`.
+  /// - Precondition: The sequence must not have duplicate keys.
+  /// - Note: Differs from the initializer in the standard library, which doesn't allow labeled tuple elements.
+  ///     This can't support *all* labels, but it does support `(key:value:)` specifically,
+  ///     which `Dictionary` and `KeyValuePairs` use for their elements.
+  init<Elements: Sequence>(uniqueKeysWithValues keysAndValues: Elements)
+  where Elements.Element == Element {
+    self.init(
+      uniqueKeysWithValues: keysAndValues.map { ($0.key, $0.value) }
+    )
+  }
 }
 
 #endif
