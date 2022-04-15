@@ -520,6 +520,9 @@ public final class DropDown: UIView {
 private extension DropDown {
 
 	func setup() {
+        if #available(iOS 15.0, *) {
+            tableView.isPrefetchingEnabled = false
+        }
 		tableView.register(cellNib, forCellReuseIdentifier: DPDConstant.ReusableIdentifier.DropDownCell)
 
 		DispatchQueue.main.async {
